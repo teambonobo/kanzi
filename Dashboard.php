@@ -39,7 +39,7 @@ $privateResult = getPrivateReportEntries();  ?>
                                 <span class="caret"></span>
                             </a>
                         </li>
-                    </ul>                                
+                    </ul>                               l 
                  </div>
             </div>
         </div>
@@ -77,7 +77,7 @@ $privateResult = getPrivateReportEntries();  ?>
                                 <div class="pull-right">
                                 	<ul class="nav nav-pills">
                                         <li class="active">
-                                        <a href="#">Partition Layout</a>
+											<a href="#">Partition Layout</a>
                                         </li>
                                         <li><a href="#">Pack Layout</a></li>
                                         <li><a href="#">Cluster Layout</a></li>
