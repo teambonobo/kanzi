@@ -14,28 +14,14 @@ var reportId = 2;
 		//renderLayout(reportId);
 		//renderSunChart(reportId);
 		renderTreeChart(reportId);
-    // $.ajax({url:"fetchReport.php?reportId="+reportId+"",success:function(result){
-		
-		// if($.trim(result) == 0)
-		// {
-			// fetchFromlocalStorage(reportId);
-		// }
-		// else
-		// {
-			// alert(result);
-			 // saveIntolocalStorage(reportId,result);
-			//$("#div1").html(result);
-		// }
-	 
     
-    // }});
   });
 });
 
 
-// function supportsLocalStorage() {
-    // return ('localStorage' in window) && window['localStorage'] !== null;
-// }
+function supportsLocalStorage() {
+    return ('localStorage' in window) && window['localStorage'] !== null;
+}
 // function saveIntolocalStorage(reportId , report) {
   // if (!supportsLocalStorage()) { return false; }
     // localStorage[reportId] = report;
@@ -69,13 +55,15 @@ var svg = d3.select("body").append("svg")
 
 d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
 
-	//console.log(root);
-	
-	/* if(error){
-		root = localStorage[reportId];
+var localStprageData = JSON.stringify(root);
+	 if(error){
+		 alert('Report fetching from localstorage');
+		 supportsLocalStorage();
+		root = JSON.parse(localStorage[reportId]);
 	} else {
-		localStorage[reportId] = root;
-	} */
+		localStorage[reportId] = localStprageData;
+	} 
+	
   var node = svg.datum(root).selectAll(".node")
       .data(pack.nodes)
     .enter().append("g")
@@ -127,7 +115,8 @@ d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
 
 	var localStprageData = JSON.stringify(root);
 	 if(error){
-	 alert('errr');
+		 alert('Report fetching from localstorage');
+		 supportsLocalStorage();
 		root = JSON.parse(localStorage[reportId]);
 	} else {
 		localStorage[reportId] = localStprageData;
@@ -195,6 +184,17 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
 d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
+
+var localStprageData = JSON.stringify(root);
+	 if(error){
+		 alert('Report fetching from localstorage');
+		// supportsLocalStorage();
+		 if (!supportsLocalStorage()) { alert('Local storage not supported'); }
+		root = JSON.parse(localStorage[reportId]);
+	} else {
+		localStorage[reportId] = localStprageData;
+	} 
+
   var nodes = tree.nodes(root),
       links = tree.links(nodes);
 
@@ -221,6 +221,9 @@ d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
 });
 
 d3.select(self.frameElement).style("height", diameter - 150 + "px");
+
+
+
 
 }
 
@@ -269,7 +272,6 @@ form {
   stroke: #ccc;
   stroke-width: 1.5px;
 }
-
 </style>
 
 </body>
