@@ -17,7 +17,7 @@
 <?php  
 include 'DashboardAction.php';
 $publicResult = getPublicReportEntries(); 
-$privateResult = getPrivateReportEntries();  ?>
+//$privateResult = getPrivateReportEntries();  ?>
 </head>
 
 <body>
@@ -48,20 +48,10 @@ $privateResult = getPrivateReportEntries();  ?>
 	<section>
     	<div class="row-fluid">
         	<div id="leftpane" class="span2">
-            	<!--<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.menulinks.nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>-->
                 <div class="logo"><a class="brand" href="index.html"><img src="img/Bonobo_logo.png"/></a></div>
             	<ul class="nav nav-list menulinks">
-                	<li class="nav-header">Private Reports</li>
+                	<li class="nav-header">Reports List</li>
 					<?php foreach($publicResult as $k=>$v) { ?>
-						<li><a href="javascript:void(0);" onclick="renderTreeChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
-					<?php } ?>
-					
-                    <li class="nav-header">Public Reports</li>
-                    <?php foreach($privateResult as $k=>$v) { ?>
 						<li><a href="javascript:void(0);" onclick="renderTreeChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
 					<?php } ?>
               	</ul>
@@ -73,7 +63,7 @@ $privateResult = getPrivateReportEntries();  ?>
                 	<div class="row-fluid">
                     	<div class="span12">
                         	<div class="contentHeader">
-                                <div class="pull-left">Report 2</div>
+                                <div class="pull-left"></div>
                                 <div class="pull-right">
                                 	<ul class="nav nav-pills">
                                         <li class="active">
@@ -140,6 +130,10 @@ text {
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
 }
 
 </style>
