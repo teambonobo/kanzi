@@ -29,7 +29,7 @@ if(isset($_GET['login'])){
             </div>
         </div>
    	</header>
-   	<section class="loginDiv">
+   	<section class="formDiv">
     	<form name="Login" class="form-horizontal" method="post" action="./auth/auth.php">
         	<div class="txtcenter">
             	<div class="control-group <?php if(ERROR == 'true') echo "error"; ?>">
@@ -65,7 +65,7 @@ if(isset($_GET['login'])){
     
     <footer class="footer">
     	<div class="txtcenter">
-    		<div>Designed and Powered by <a href="#">Bonobo - the super monkeys</a></div>
+    		<div>Designed and Powered by <a href="#">Bonobo</a></div>
         	<div>&copy;2013 Bonobo. All rights reserved. </div>
         </div>
     </footer>
