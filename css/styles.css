@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+
+.bodybg{ background-color:#3b3a3f;}
+.header{ height:120px;}
+.loginDiv{ min-height:250px; overflow:auto; margin-top:60px;}
+.txtcenter{ text-align:center;}
+.fnone{ margin:0 auto; float:none!important;}
+
+/*.navbar-fixed-top{position: fixed!important;}*/
+.navbar .brand, .form-horizontal .controls { margin-left:0!important;}
+
+.btn-custom { background-color: hsl(194, 70%, 47%) !important; background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#78cde7", endColorstr="#23a4cb"); background-image: -khtml-gradient(linear, left top, left bottom, from(#78cde7), to(#23a4cb)); background-image: -moz-linear-gradient(top, #78cde7, #23a4cb); background-image: -ms-linear-gradient(top, #78cde7, #23a4cb); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #78cde7), color-stop(100%, #23a4cb)); background-image: -webkit-linear-gradient(top, #78cde7, #23a4cb); background-image: -o-linear-gradient(top, #78cde7, #23a4cb); background-image: linear-gradient(#78cde7, #23a4cb); border-color: #23a4cb #23a4cb hsl(194, 70%, 41.5%); color: #FFF !important; text-shadow: 0 1px 1px rgba(255, 255, 255, 0.36); -webkit-font-smoothing: antialiased; text-transform:none;}
+
+.footer {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+height: 50px;
+background:#4cb8d9;
+padding:10px 0;
+}
+
+.footer a{ color:#966430;}
+
+/********** Dashboard **************/
+ ul li{ list-style:none;}
