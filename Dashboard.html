@@ -43,14 +43,19 @@
                 
 	<section>
     	<div class="row-fluid">
+        	<button  data-target=".navbar-collapse-top" data-toggle="collapse" class="navbar-toggle collapsed visible-phone" type="button">
+              <i class="icon-align-justify"></i>
+            </button>
+            
+            <!--<button data-target=".navbar-collapse-top" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+          <span class="sr-only">Toggle Top Navigation</span>
+          <i class="icon-align-justify"></i>
+        </button>-->
         	<div id="leftpane" class="span2">
-            	<!--<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.menulinks.nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>-->
                 <div class="logo"><a class="brand" href="index.html"><img src="img/Bonobo_logo.png"/></a></div>
-            	<ul class="nav nav-list menulinks">
+                
+                <!--<div class="navbar-collapse navbar-collapse-top in" >-->
+            	<ul class="nav nav-list menulinks navbar-collapse navbar-collapse-top in" style="height: auto;">
                 	<li class="nav-header">Private Reports</li>
                 	<li><a href="javascript:void(0);" class="reportsTab">Report 1</a></li>
                     <li class="active"><a href="#">Report 2</a></li>
@@ -99,13 +104,21 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/placeholder.js"></script>
 <script>
-	$(document).ready(function(){
-		var winHeight= $(window).height()
+	//$(document).ready(function(){
+		//var winHeight= $(window).height()
 		//alert(winHeight);
 		//$('#dashContainer').height(winHeight);
-		$('#dashContainer').css('min-height', winHeight);
-		$('#leftpane').css('min-height', winHeight);
-	});
+		//$('#dashContainer').css('min-height', winHeight);
+		//$('#leftpane').css('min-height', winHeight);
+		
+		//if (windowsize < 480) {
+			//alert("hi")
+		  //if the window is less than 440px wide then turn on jScrollPane..
+			//$('#leftpane').hide();
+		//}
+	//});
+	
+	
 </script>
 <style>
 .node circle {
