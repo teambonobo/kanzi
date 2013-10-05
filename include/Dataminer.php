@@ -65,43 +65,54 @@ class Dataminer{
 	
 	function drillDown($tblName)
 	{
-		echo "<pre>";
-		$connector = new DbConnector();
-		$query = "SELECT * FROM flat_table_config WHERE name = '".$tblName."'";
-		$result = $connector->query($query);
-		$row = $connector->fetchAssocArray($result);
-		if($row){
-			$resJson = json_decode($row['value']);
-			$query=array();
-			$groupBy=array();
-			foreach($resJson->cardinal_array as $key => $cardinal){	
-				$groupBy[]=$key;
-				echo $tmpQuery = 'Select count('.$resJson->primary_key.') AS cnt,'.implode(',',$groupBy).' from '.$tblName.' Group By '.implode(',',$groupBy);
-				$query[]= $tmpQuery;
-				
-				
-				//run the query to produce JSON report
-				$this->tmpArr = array();
-				$tmpResult = $connector->query($tmpQuery);
-				while($tmpRow = $connector->fetchAssocArray($tmpResult)){
-					//$tmpArr[] = 
-					
-					$tmpA = $this->recFunc($this->tmpArr,$groupBy, $tmpRow);
-					
-					//print_r($groupBy);
-					/*foreach($groupBy as $val){
-						$arrIndexStr = "['$tmpRow[$val]']";
-						echo $arrIndexStr;
-						$tmpArr = recFunc($tmpRow['cnt'];
-					}*/
-				}
-				print_r($tmpA);
-				die();
-			}	
+		$this->connector = new DbConnector();
+		$sql = "select value from flat_table_config where name = '$tblName'";
+		$ranksRes = $this->connector->query($sql);
+		$ranksResRow = $this->connector->fetchAssocArray($ranksRes);
+		$rankArray = json_decode(current($ranksResRow));
+		$cardinals = $rankArray->cardinal_array;$pivot = $rankArray->primary_key;
+		$this->ranks = array_keys(get_object_vars($cardinals));
 		
-			
-		//print_r($query);
-		}
+		$options = array("table"=>$tblName,"field"=>$this->ranks[0],'pivot'=>$pivot,'next'=>1);
+		
+		$arr = '{"name":"'.$this->ranks[0].'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
+		echo $arr;
+	}
+	function getChildren($field,$tablename,$pivot,$next,$criteria) {
+	
+	
+		
+		//$retArray = "{";
+		$retArray = "";
+		$next++;
+		 $countSql = "select count(".$pivot.") cnt,".$field." field from ".$tablename;
+		 $where = "";
+		 foreach($criteria as $key=>$value) {
+			$where .= $where?" AND ":" WHERE ";
+			$where .= $key ."='".$value."'";
+		 }
+		 
+		 $countSql .= $where." Group By $field";
+		 $countRes = $this->connector->query($countSql);
+		 $i = 0;
+		while($countResRow = $this->connector->fetchAssocArray($countRes)) {
+			$criteria[$field] = $countResRow['field'];
+			if(isset($this->ranks[$next])) {
+				if($i > 0)
+					$retArray .= ",";
+				$i++;
+				$retArray .= '{"name":"'.$countResRow['field'].'","size":"'.$countResRow['cnt'].'"';
+				$childData = $this->getChildren($this->ranks[$next],$tablename,$pivot,$next,$criteria);
+				//var_dump($childData != '{}');
+				if($childData != '{}') {
+					$retArray.= ',"children":['.$childData.']';
+				}
+				$retArray .="}";
+			}
+
+		 }
+		 return $retArray;
+	
 	}
 	function recFunc($tar, $groups, $row){
 		
