@@ -14,6 +14,10 @@
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css" type="text/css">
 <link rel="stylesheet" href="css/styles.css" type="text/css">
+<?php  
+include 'DashboardAction.php';
+$publicResult = getPublicReportEntries(); 
+$privateResult = getPrivateReportEntries();  ?>
 </head>
 
 <body>
@@ -35,7 +39,7 @@
                                 <span class="caret"></span>
                             </a>
                         </li>
-                    </ul>                                
+                    </ul>                               l 
                  </div>
             </div>
         </div>
@@ -43,31 +47,23 @@
                 
 	<section>
     	<div class="row-fluid">
-        	<button  data-target=".navbar-collapse-top" data-toggle="collapse" class="navbar-toggle collapsed visible-phone" type="button">
-              <i class="icon-align-justify"></i>
-            </button>
-            
-            <!--<button data-target=".navbar-collapse-top" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-          <span class="sr-only">Toggle Top Navigation</span>
-          <i class="icon-align-justify"></i>
-        </button>-->
         	<div id="leftpane" class="span2">
+            	<!--<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.menulinks.nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>-->
                 <div class="logo"><a class="brand" href="index.html"><img src="img/Bonobo_logo.png"/></a></div>
-                
-                <!--<div class="navbar-collapse navbar-collapse-top in" >-->
-            	<ul class="nav nav-list menulinks navbar-collapse navbar-collapse-top in" style="height: auto;">
+            	<ul class="nav nav-list menulinks">
                 	<li class="nav-header">Private Reports</li>
-                	<li><a href="javascript:void(0);" class="reportsTab">Report 1</a></li>
-                    <li class="active"><a href="#">Report 2</a></li>
-                    <li><a href="#">Report 3</a></li>
-                    <li><a href="#">Report 4</a></li>
-                    <li><a href="#">Report 5</a></li>
+					<?php foreach($publicResult as $k=>$v) { ?>
+						<li><a href="javascript:void(0);" onclick="renderTreeChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
+					<?php } ?>
+					
                     <li class="nav-header">Public Reports</li>
-                    <li><a href="#">Report 1</a></li>
-                    <li><a href="#">Report 2</a></li>
-                    <li><a href="#">Report 3</a></li>
-                    <li><a href="#">Report 4</a></li>
-                    <li><a href="#">Report 5</a></li>
+                    <?php foreach($privateResult as $k=>$v) { ?>
+						<li><a href="javascript:void(0);" onclick="renderTreeChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
+					<?php } ?>
               	</ul>
          	</div>
             
@@ -81,7 +77,7 @@
                                 <div class="pull-right">
                                 	<ul class="nav nav-pills">
                                         <li class="active">
-                                        <a href="#">Partition Layout</a>
+											<a href="#">Partition Layout</a>
                                         </li>
                                         <li><a href="#">Pack Layout</a></li>
                                         <li><a href="#">Cluster Layout</a></li>
@@ -104,23 +100,32 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/placeholder.js"></script>
 <script>
-	//$(document).ready(function(){
-		//var winHeight= $(window).height()
+	$(document).ready(function(){
+		var winHeight= $(window).height()
 		//alert(winHeight);
 		//$('#dashContainer').height(winHeight);
-		//$('#dashContainer').css('min-height', winHeight);
-		//$('#leftpane').css('min-height', winHeight);
-		
-		//if (windowsize < 480) {
-			//alert("hi")
-		  //if the window is less than 440px wide then turn on jScrollPane..
-			//$('#leftpane').hide();
-		//}
-	//});
-	
-	
+		$('#dashContainer').css('min-height', winHeight);
+		$('#leftpane').css('min-height', winHeight);
+	});
 </script>
 <style>
+
+circle {
+  fill: rgb(31, 119, 180);
+  fill-opacity: .25;
+  stroke: rgb(31, 119, 180);
+  stroke-width: 1px;
+}
+
+.leaf circle {
+  fill: #ff7f0e;
+  fill-opacity: 1;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
 .node circle {
   fill: #fff;
   stroke: steelblue;
@@ -136,6 +141,7 @@
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+
 </style>
 </body>
 </html>

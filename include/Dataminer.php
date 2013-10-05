@@ -2,7 +2,7 @@
 class Dataminer{
 
 	var $connector;
-
+	var $tmpArr;
 	function parse_table($tblName)
 	{
 		$connector = new DbConnector();
@@ -62,4 +62,73 @@ class Dataminer{
 		return true;
 		
 	}
+	
+	function drillDown($tblName)
+	{
+		$this->connector = new DbConnector();
+		$sql = "select value from flat_table_config where name = '$tblName'";
+		$ranksRes = $this->connector->query($sql);
+		$ranksResRow = $this->connector->fetchAssocArray($ranksRes);
+		$rankArray = json_decode(current($ranksResRow));
+		$cardinals = $rankArray->cardinal_array;$pivot = $rankArray->primary_key;
+		$this->ranks = array_keys(get_object_vars($cardinals));
+		
+		$options = array("table"=>$tblName,"field"=>$this->ranks[0],'pivot'=>$pivot,'next'=>1);
+		
+		$arr = '{"name":"'.$this->ranks[0].'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
+		echo $arr;
+	}
+	function getChildren($field,$tablename,$pivot,$next,$criteria) {
+	
+	
+		
+		//$retArray = "{";
+		$retArray = "";
+		$next++;
+		 $countSql = "select count(".$pivot.") cnt,".$field." field from ".$tablename;
+		 $where = "";
+		 foreach($criteria as $key=>$value) {
+			$where .= $where?" AND ":" WHERE ";
+			$where .= $key ."='".$value."'";
+		 }
+		 
+		 $countSql .= $where." Group By $field";
+		 $countRes = $this->connector->query($countSql);
+		 $i = 0;
+		while($countResRow = $this->connector->fetchAssocArray($countRes)) {
+			$criteria[$field] = $countResRow['field'];
+			if(isset($this->ranks[$next])) {
+				if($i > 0)
+					$retArray .= ",";
+				$i++;
+				$retArray .= '{"name":"'.$countResRow['field'].'","size":"'.$countResRow['cnt'].'"';
+				$childData = $this->getChildren($this->ranks[$next],$tablename,$pivot,$next,$criteria);
+				//var_dump($childData != '{}');
+				if($childData != '{}') {
+					$retArray.= ',"children":['.$childData.']';
+				}
+				$retArray .="}";
+			}
+
+		 }
+		 return $retArray;
+	
+	}
+	function recFunc($tar, $groups, $row){
+		
+		//$retArr = array();
+		if(count($groups) == 0)
+		{
+			return($row['cnt']);
+		}
+		else
+		{
+			$firstGrp = array_shift($groups);
+			//$this->tmpArr[$row[$firstGrp]] = $this->recFunc($groups, $row);
+			//return array($row[$firstGrp] => $this->recFunc($groups, $row)); 
+			return $tar[$row[$firstGrp]] = $this->recFunc($tar[$row[$firstGrp]],$groups, $row); 
+		}
+	
+	}
+
 }
