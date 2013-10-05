@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
         // Call the WebViewActivity on load
         Intent intent = new Intent(context, WebViewActivity.class);
 		startActivity(intent);
+		finish();
     }
 
 

@@ -5,6 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="button_submit">Go</string>
-    <string name="webview_url">http://10.244.21.64/BONOBO</string>
+    <string name="webview_url">http://10.244.21.64/kanzi</string>
 
 </resources>
