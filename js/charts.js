@@ -27,8 +27,8 @@ var svg = d3.select("body").append("svg")
       .attr("preserveAspectRatio", "xMidYMid meet")
       .attr("pointer-events", "all")
 	  .call(d3.behavior.zoom().on("zoom", redraw))
-  .append("g")
-    .attr("transform", "translate(2,2)");
+      .append("g")
+      .attr("transform", "translate(2,2)");
 
 d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
 
