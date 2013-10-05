@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+D:\Kanzi_ADT\.metadata\.plugins\org.eclipse.jdt.core
+1216331104.index
+3317710523.index
+515726235.index

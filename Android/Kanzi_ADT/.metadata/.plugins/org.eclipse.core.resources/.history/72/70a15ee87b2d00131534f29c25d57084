@@ -1,0 +1,13 @@
+package com.bonobo.kanzi.webview;
+
+import android.webkit.WebView;
+
+public class WebViewActivity {
+
+	private WebView webView;
+	
+	private void onCrea() {
+		// TODO Auto-generated method stub
+
+	}
+}
