@@ -6,7 +6,7 @@ if(isset($_GET['login'])){
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en" manifest="offline.appcache">
 <head>
 <meta charset="utf-8" />
 <title>Login</title>
