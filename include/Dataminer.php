@@ -63,7 +63,7 @@ class Dataminer{
 		
 	}
 	
-	function drillDown($tblName)
+	function drillDown($tblName, $cardinalArr, $reportId)
 	{
 		$this->connector = new DbConnector();
 		$sql = "select value from flat_table_config where name = '$tblName'";
@@ -71,12 +71,16 @@ class Dataminer{
 		$ranksResRow = $this->connector->fetchAssocArray($ranksRes);
 		$rankArray = json_decode(current($ranksResRow));
 		$cardinals = $rankArray->cardinal_array;$pivot = $rankArray->primary_key;
-		$this->ranks = array_keys(get_object_vars($cardinals));
+		//$this->ranks = array_keys(get_object_vars($cardinals));
+		$this->ranks = $cardinalArr;
 		
 		$options = array("table"=>$tblName,"field"=>$this->ranks[0],'pivot'=>$pivot,'next'=>1);
 		
 		$arr = '{"name":"'.$this->ranks[0].'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
-		echo $arr;
+		$queryUpdate = "UPDATE bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
+		$this->connector->query($queryUpdate);   
+		
+		
 	}
 	function getChildren($field,$tablename,$pivot,$next,$criteria) {
 	
@@ -100,6 +104,7 @@ class Dataminer{
 			if(isset($this->ranks[$next])) {
 				if($i > 0)
 					$retArray .= ",";
+					
 				$i++;
 				$retArray .= '{"name":"'.$countResRow['field'].'","size":"'.$countResRow['cnt'].'"';
 				$childData = $this->getChildren($this->ranks[$next],$tablename,$pivot,$next,$criteria);
@@ -108,6 +113,11 @@ class Dataminer{
 					$retArray.= ',"children":['.$childData.']';
 				}
 				$retArray .="}";
+			} else {
+				if($i > 0)
+					$retArray .= ",";
+				$i++;
+				$retArray .= '{"name":"'.$countResRow['field'].'","size":"'.$countResRow['cnt'].'"}';
 			}
 
 		 }
