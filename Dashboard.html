@@ -7,12 +7,40 @@
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<script src="js/jquery-1.10.1.min.js"> </script>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/charts.js"></script>
+
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css" type="text/css">
 <link rel="stylesheet" href="css/styles.css" type="text/css">
 </head>
 
 <body>
+	<header class="dashboardheader">
+        <div class="navbar">
+            <div class="navbar-inner">
+                 <div>
+                   <!-- <a class="brand logotxt" href="index.html">BonoboXYZ</a>-->
+                    <form class="form-search">
+                        <div class="input-append">
+                            <input type="text" class="input-medium search-query" placeholder="search...">
+                            <span class="add-on"><i class="icon-search"></i></span>
+                        </div>
+                    </form>
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="icon-user"></i>
+                                <span class="caret"></span>
+                            </a>
+                        </li>
+                    </ul>                                
+                 </div>
+            </div>
+        </div>
+    </header>
+                
 	<section>
     	<div class="row-fluid">
         	<div id="leftpane" class="span2">
@@ -24,7 +52,7 @@
                 <div class="logo"><a class="brand" href="index.html"><img src="img/Bonobo_logo.png"/></a></div>
             	<ul class="nav nav-list menulinks">
                 	<li class="nav-header">Private Reports</li>
-                	<li><a href="#">Report 1</a></li>
+                	<li><a href="javascript:void(0);" class="reportsTab">Report 1</a></li>
                     <li class="active"><a href="#">Report 2</a></li>
                     <li><a href="#">Report 3</a></li>
                     <li><a href="#">Report 4</a></li>
@@ -33,18 +61,68 @@
                     <li><a href="#">Report 1</a></li>
                     <li><a href="#">Report 2</a></li>
                     <li><a href="#">Report 3</a></li>
-              </ul>
+                    <li><a href="#">Report 4</a></li>
+                    <li><a href="#">Report 5</a></li>
+              	</ul>
          	</div>
             
             <div id="dashContainer" class="span10">
-            	dfjksdf
+            	
+                <div class="container-fluid">
+                	<div class="row-fluid">
+                    	<div class="span12">
+                        	<div class="contentHeader">
+                                <div class="pull-left">Report 2</div>
+                                <div class="pull-right">
+                                	<ul class="nav nav-pills">
+                                        <li class="active">
+                                        <a href="#">Partition Layout</a>
+                                        </li>
+                                        <li><a href="#">Pack Layout</a></li>
+                                        <li><a href="#">Cluster Layout</a></li>
+                                	</ul>
+                                </div>
+                            </div>
+                            <div class="visualisation" id="visualisation">
+                            	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>	
     
     
-<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/jquery-1.10.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/placeholder.js"></script>
+<script>
+	$(document).ready(function(){
+		var winHeight= $(window).height()
+		//alert(winHeight);
+		//$('#dashContainer').height(winHeight);
+		$('#dashContainer').css('min-height', winHeight);
+		$('#leftpane').css('min-height', winHeight);
+	});
+</script>
+<style>
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+</style>
 </body>
 </html>
