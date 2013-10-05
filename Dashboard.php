@@ -109,6 +109,23 @@ $privateResult = getPrivateReportEntries();  ?>
 	});
 </script>
 <style>
+
+circle {
+  fill: rgb(31, 119, 180);
+  fill-opacity: .25;
+  stroke: rgb(31, 119, 180);
+  stroke-width: 1px;
+}
+
+.leaf circle {
+  fill: #ff7f0e;
+  fill-opacity: 1;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
 .node circle {
   fill: #fff;
   stroke: steelblue;
@@ -124,6 +141,7 @@ $privateResult = getPrivateReportEntries();  ?>
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+
 </style>
 </body>
 </html>
