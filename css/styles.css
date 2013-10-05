@@ -1,9 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
 
-.bodybg{ background-color:#3b3a3f; font-family:Verdana, Geneva, sans-serif;}
+.bodybg{ background-color:#3b3a3f; font-family:Verdana, Geneva, sans-serif; height: 100%;}
 .header{ height:120px;}
-.formDiv{ min-height:250px; overflow:auto; margin-top:60px;}
+.formDiv, .dataform{ min-height:250px; overflow:auto; margin-top:60px;}
+.dataform{ margin-top:20px; min-height:450px;}
 .txtcenter{ text-align:center;}
 .fnone{ margin:0 auto; float:none!important;}
 
@@ -49,7 +50,6 @@ ul li{text-shadow:none!important;}
 
 .visualisation{}
 .imgContainer{ padding:0 10px;}
-
 
 /************ data entry screens ***********/
 textarea{ resize:none;}
