@@ -7,6 +7,10 @@
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<script src="js/jquery-1.10.1.min.js"> </script>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/charts.js"></script>
+
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css" type="text/css">
 <link rel="stylesheet" href="css/styles.css" type="text/css">
@@ -48,7 +52,7 @@
                 <div class="logo"><a class="brand" href="index.html"><img src="img/Bonobo_logo.png"/></a></div>
             	<ul class="nav nav-list menulinks">
                 	<li class="nav-header">Private Reports</li>
-                	<li><a href="#">Report 1</a></li>
+                	<li><a href="javascript:void(0);" class="reportsTab">Report 1</a></li>
                     <li class="active"><a href="#">Report 2</a></li>
                     <li><a href="#">Report 3</a></li>
                     <li><a href="#">Report 4</a></li>
@@ -79,9 +83,8 @@
                                 	</ul>
                                 </div>
                             </div>
-                            
-                            <div class="visualisation">
-                            	<div class="imgContainer"><img src="img/visualisation.png"/></div>
+                            <div class="visualisation" id="visualisation">
+                            	
                             </div>
                         </div>
                     </div>
@@ -104,5 +107,22 @@
 		$('#leftpane').css('min-height', winHeight);
 	});
 </script>
+<style>
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+</style>
 </body>
 </html>
