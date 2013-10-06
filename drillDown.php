@@ -2,7 +2,7 @@
 include 'include/header.php';
 if(!empty($_GET['table'])){
 	$connector = new DbConnector();
-	$sql = "SELECT value FROM flat_table_config WHERE name = '".$_REQUEST['table']."'";
+	$sql = "SELECT value FROM kanzi.flat_table_config WHERE name = '".$_REQUEST['table']."'";
 	$ranksRes = $connector->query($sql);
 	$ranksResRow = $connector->fetchAssocArray($ranksRes);
 	$rankArray = json_decode($ranksResRow['value']);
