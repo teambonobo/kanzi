@@ -92,6 +92,7 @@ if(!empty($_REQUEST['list'])){
                     	<label class="control-label"></label>
                         <div class="controls">
                             <button type="submit" class="btn btn-primary btn-custom">Submit</button>
+							<button class="btn btn-primary btn-custom" onClick="window.location='index.php';">Go To Dashboard</button>
                         </div>
                     </div>
             </form>

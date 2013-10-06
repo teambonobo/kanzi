@@ -28,20 +28,16 @@ $publicResult = getPublicReportEntries();
             <div class="navbar-inner">
                  <div>
                    <!-- <a class="brand logotxt" href="index.html">BonoboXYZ</a>-->
-                    <form class="form-search">
-                        <div class="input-append">
-                            <input type="text" class="input-medium search-query" placeholder="search...">
-                            <span class="add-on"><i class="icon-search"></i></span>
-                        </div>
-                    </form>
+                    
                     <ul class="nav pull-right">
-                        <li class="dropdown">
-                            <a href="#">
-                                <i class="icon-user"></i>
-                                <span class="caret"></span>
-                            </a>
-                        </li>
-                    </ul>                               l 
+                       <ul class="nav nav-pills">
+                                        <li class="active">
+											<a href="datamin.php">Data Mining</a>
+                                        </li>
+                                        
+                                        
+                                	</ul>
+                    </ul>                              
                  </div>
             </div>
         </div>
