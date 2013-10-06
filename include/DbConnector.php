@@ -14,7 +14,7 @@ class DbConnector {
   	$pass = '';
   // Connect to the database
   	$this->link = mysql_connect($host, $user, $pass);
-  	mysql_select_db($db);
+  	//mysql_select_db($db);
   }
   
   // Execute a query 
