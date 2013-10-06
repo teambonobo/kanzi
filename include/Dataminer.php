@@ -19,7 +19,7 @@ class Dataminer{
 		}
 		
 		//check if table entry exists in flat_table_config
-		$query = "SELECT * FROM flat_table_config WHERE name = '".$tblName."'";
+		$query = "SELECT * FROM kanzi.flat_table_config WHERE name = '".$tblName."'";
 		$result = $connector->query($query);
 		$row = $connector->fetchAssocArray($result);
 		if($row)
@@ -55,7 +55,7 @@ class Dataminer{
 			$returnArr['cardinal_array'] = $cardinal;
 			$resJson = json_encode($returnArr);
 			
-			$queryInsert = "INSERT INTO flat_table_config (name, value) VALUES ('".$tblName."', '".$resJson."')";
+			$queryInsert = "INSERT INTO kanzi.flat_table_config (name, value) VALUES ('".$tblName."', '".$resJson."')";
 			$connector->query($queryInsert);   
 			return json_encode($resJson);			
 		}
@@ -66,7 +66,7 @@ class Dataminer{
 	function drillDown($tblName, $cardinalArr, $reportId)
 	{
 		$this->connector = new DbConnector();
-		$sql = "select value from flat_table_config where name = '$tblName'";
+		$sql = "select value from kanzi.flat_table_config where name = '$tblName'";
 		$ranksRes = $this->connector->query($sql);
 		$ranksResRow = $this->connector->fetchAssocArray($ranksRes);
 		$rankArray = json_decode(current($ranksResRow));
@@ -77,7 +77,7 @@ class Dataminer{
 		$options = array("table"=>$tblName,"field"=>$this->ranks[0],'pivot'=>$pivot,'next'=>1);
 		
 		$arr = '{"name":"'.$this->ranks[0].'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
-		$queryUpdate = "UPDATE bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
+		$queryUpdate = "UPDATE kanzi.bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
 		$this->connector->query($queryUpdate);   
 		
 		
