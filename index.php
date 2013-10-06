@@ -64,10 +64,10 @@ $publicResult = getPublicReportEntries();
                                 <div class="pull-left"></div>
                                 <div class="pull-right">
                                 	<ul class="nav nav-pills">
-                                        <li class="active">
+                                        <li class="active" id="sunburst">
 											<a href="javascript:getReport(1)">Sun Burst</a>
                                         </li>
-                                        <li><a href="javascript:getReport(2)">Dendrograph</a></li>
+                                        <li id="dendrograph"><a href="javascript:getReport(2)">Dendrograph</a></li>
                                         
                                 	</ul>
                                 </div>
