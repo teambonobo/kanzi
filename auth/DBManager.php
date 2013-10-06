@@ -54,13 +54,13 @@ class DBManager
 
 		for ($i=0; $i < count($names); $i++) { 
 			$cols .= $names[$i].",";
-			$vals .= "\"".$values[$i]."\",";
+			$vals .= "\"".mysql_escape_string($values[$i])."\",";
 		}
 
 		$cols = rtrim($cols,',').")";
 		$vals = rtrim($vals,',').")";
 		
-		$sql = "INSERT INTO ".$name." ".$cols." VALUES ".$vals;
+		$sql = "INSERT INTO ".mysql_escape_string($name)." ".$cols." VALUES ".$vals;
 
 		$stmt = $this->dbconnection->prepare($sql);
 		$stmt->execute();

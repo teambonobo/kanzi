@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `kanzi`
 --
-CREATE DATABASE IF NOT EXISTS `kanzi` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `kanzi`;
+CREATE DATABASE IF NOT EXISTS `PSL_Data` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `PSL_Data`;
 
 -- --------------------------------------------------------
 
