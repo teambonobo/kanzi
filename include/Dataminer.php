@@ -43,13 +43,16 @@ class Dataminer{
 					$distinctResult = $connector->query($query);
 					$distinctRow = $connector->fetchAssocArray($distinctResult);
 					if(($tableCount-$distinctRow['cnt'])>0){ //Get the Cardinal Values
-						$cardinal[$row['Field']] = $distinctRow['cnt'];			
+						if((($tableCount-$distinctRow['cnt'])/100)>50){
+							$cardinal[$row['Field']] = $distinctRow['cnt'];			
+						}
 					}
 				 }else{
 					$primaryKey=$row['Field'];
 				 }
 			}
 			asort($cardinal);
+			
 			$returnArr['status'] = 1;
 			$returnArr['primary_key'] = $primaryKey;
 			$returnArr['cardinal_array'] = $cardinal;
