@@ -7,7 +7,7 @@ function getPublicReportEntries()
 {
 //Processing Logic
 $connector = new DbConnector();
-$query = "SELECT id,report_name FROM bonobo_reports WHERE status = 1";
+$query = "SELECT id,report_name FROM kanzi.bonobo_reports WHERE status = 1";
 $result = $connector->query($query);
 	 if($connector->getNumRows($result)>0) {
 		 while ($row = $connector->fetchArray($result)) { 		
@@ -23,7 +23,7 @@ function getPrivateReportEntries()
 {
 //Processing Logic
 $connector = new DbConnector();
-$query = "SELECT id,report_name FROM bonobo_reports WHERE status = 2";
+$query = "SELECT id,report_name FROM kanzi.bonobo_reports WHERE status = 2";
 $result = $connector->query($query);
 	 if($connector->getNumRows($result)>0) {
 		 while ($row = $connector->fetchArray($result)) { 		

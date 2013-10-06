@@ -8,7 +8,7 @@ $connector = new DbConnector();
 $reportId = $_GET["reportId"];
 
 //Processing Logic
-$query = "SELECT value FROM bonobo_reports WHERE id = ".$reportId." LIMIT 1";
+$query = "SELECT value FROM kanzi.bonobo_reports WHERE id = ".$reportId." LIMIT 1";
 $result = $connector->query($query);
      if($connector->getNumRows($result)>0) {
          while ($row = $connector->fetchArray($result)) { 		
