@@ -361,9 +361,13 @@ function getReport(reportType){
 	switch(reportType) {
 		case 1:
 			renderSunChart(_reportId);
+			$( "#sunburst" ).addClass( "active" );
+			$( "#dendrograph" ).removeClass( "active" );
 			break;
 		case 2:
 			renderTreeChart(_reportId);
+			$( "#dendrograph" ).addClass( "active" );
+			$( "#sunburst" ).removeClass( "active" );
 			break;
 	}
 
