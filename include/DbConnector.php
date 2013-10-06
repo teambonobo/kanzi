@@ -6,10 +6,9 @@ class DbConnector {
   var $theQuery;
   var $link;
   
-  function DbConnector(){
+  function DbConnector($db='kanzi'){
   // Get the db settings.
   	$host = '127.0.0.1';
-  	$db = 'kanzi';
   	$user = 'root';
   	$pass = '';
   // Connect to the database

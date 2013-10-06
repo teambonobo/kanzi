@@ -145,7 +145,17 @@ d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
 	  
 
 	function showToolTip(d){
-		tooltip.pop(this,d.name + (d.size ? '('+d.size+')' : ''), {position:4}); 
+		dparent = d.parent;
+		str = 'count('+d.pivot+')';
+		per = "";
+		while(dparent != undefined ) {
+			fld = (dparent.field ? "For "+dparent.field+" as " + dparent.name : '')
+			per = fld+ "<br/>" +per;
+			console.log(dparent);
+			dparent = dparent.parent;
+		}
+		dfld = (d.field ? " For "+d.field+" as " + d.name : '')
+		tooltip.pop(this,per + str +  dfld + (d.size ? ' is '+d.size : ''), {position:4}); 
 		
 	}
 	
