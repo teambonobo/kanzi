@@ -38,13 +38,14 @@ if(!empty($_REQUEST['list'])){
         </div>
    	</header>
 
+	<div style="text-align:center">
    	<section class="container-fluid dataform">
     	<div class="row-fluid">
             	<form name="data" class="form-horizontal" method="post" action="">
                     <div class="control-group">
-                        <label class="control-label">Database</label>
+                        <!-- label class="control-label">Database</label -->
                         <div class="controls">
-							 <input type="text" placeholder="" autocomplete="on" list="dblist" name="database" id="dbinput">
+							 <input type="text" placeholder="Database" autocomplete="on" list="dblist" name="database" id="dbinput">
                              <datalist id="dblist">
 							 <?php 	
 									$connector = new DbConnector();
@@ -58,9 +59,9 @@ if(!empty($_REQUEST['list'])){
 						</div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Dataset</label>
+                        <!-- label class="control-label">Dataset</label -->
                         <div class="controls">
-							 <input type="text" placeholder="" autocomplete="on" list="datalist" name="list">
+							 <input type="text" placeholder="Dataset" autocomplete="on" list="datalist" name="list">
                              <datalist id="datalist">
 							 <?php 	
 									/*$connector = new DbConnector();
@@ -74,16 +75,16 @@ if(!empty($_REQUEST['list'])){
 						</div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Name</label>
+                        <!-- label class="control-label">Name</label -->
                         <div class="controls">
-                        	<input type="text" placeholder="" name="Name">
+                        	<input type="text" placeholder="Name" name="Name">
                         </div>
                    </div>
                     
                    <div class="control-group">
-                        <label class="control-label">Description</label>
+                        <!-- label class="control-label">Description</label -->
                         <div class="controls">
-                            <textarea rows="3" name="Description"></textarea>
+                            <textarea rows="3" name="Description" placeholder="Description"></textarea>
                         </div>
                     </div> 
                     
@@ -96,6 +97,7 @@ if(!empty($_REQUEST['list'])){
             </form>
         </div>
     </section>
+	</div>
   
 </div>
     
