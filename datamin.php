@@ -2,13 +2,14 @@
 include 'include/header.php'; 
 if(!empty($_REQUEST['list'])){
 	$dataMineObj = new DataMiner();
-	$dataMineObj->parse_table($_REQUEST['list']);
+	$dbName = $_REQUEST['database'];
+	$dataMineObj->parse_table($dbName.".".$_REQUEST['list']);
 	//Insert INto reports table
 	$connector = new DbConnector();
-	$queryInsert = "INSERT INTO bonobo_reports (report_name, description) VALUES ('".$_REQUEST['Name']."', '".$_REQUEST['Description']."')";
+	$queryInsert = "INSERT INTO kanzi.bonobo_reports (report_name, description) VALUES ('".$_REQUEST['Name']."', '".$_REQUEST['Description']."')";
 	$connector->query($queryInsert);   
 	$Id=mysql_insert_id();
-	header('Location:drillDown.php?id='.$Id.'&table='.$_REQUEST['list']);
+	header('Location:drillDown.php?id='.$Id.'&table='.$dbName.'.'.$_REQUEST['list']);
 }
 ?>
 <!DOCTYPE html>
@@ -41,13 +42,13 @@ if(!empty($_REQUEST['list'])){
     	<div class="row-fluid">
             	<form name="data" class="form-horizontal" method="post" action="">
                     <div class="control-group">
-                        <label class="control-label">Dataset</label>
+                        <label class="control-label">Database</label>
                         <div class="controls">
-							 <input type="text" placeholder="" autocomplete="on" list="datalist" name="list">
-                             <datalist id="datalist">
+							 <input type="text" placeholder="" autocomplete="on" list="dblist" name="database" id="dbinput">
+                             <datalist id="dblist">
 							 <?php 	
 									$connector = new DbConnector();
-									$query = "Show Tables";
+									$query = "show databases";
 									$result = $connector->query($query);
 									while ($row = $connector->fetchArray($result)) { 
 										echo "<option value='".$row[0]."'>";
@@ -56,7 +57,22 @@ if(!empty($_REQUEST['list'])){
                             </datalist>
 						</div>
                     </div>
-                    
+                    <div class="control-group">
+                        <label class="control-label">Dataset</label>
+                        <div class="controls">
+							 <input type="text" placeholder="" autocomplete="on" list="datalist" name="list">
+                             <datalist id="datalist">
+							 <?php 	
+									/*$connector = new DbConnector();
+									$query = "Show Tables IN kanzi";
+									$result = $connector->query($query);
+									while ($row = $connector->fetchArray($result)) { 
+										echo "<option value='".$row[0]."'>";
+									}*/
+								?>
+                            </datalist>
+						</div>
+                    </div>
                     <div class="control-group">
                         <label class="control-label">Name</label>
                         <div class="controls">
@@ -90,6 +106,24 @@ if(!empty($_REQUEST['list'])){
         </div>
     </footer>
 <script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+$("#dbinput").change( function() {
+$("#datalist").html("");
+$.ajax({
+type: "POST",
+data: "data=" + $(this).val(),
+url: "dbtables.php",
+success: function(msg){
+if (msg != ""){
+$("#datalist").html(msg);
+}
+}
+});
+});
+});
+</script>
 <script src="js/bootstrap.js"></script>
 <script src="js/placeholder.js"></script>
 </body>
