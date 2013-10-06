@@ -10,8 +10,10 @@
 <script src="js/jquery-1.10.1.min.js"> </script>
 <script src="js/d3.v3.min.js"></script>
 <script src="js/charts.js"></script>
+<script src="js/tooltip.js"></script>
 
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="css/tooltip.css" type="text/css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css" type="text/css">
 <link rel="stylesheet" href="css/styles.css" type="text/css">
 <?php  
@@ -57,7 +59,7 @@ $privateResult = getPrivateReportEntries();  ?>
             	<ul class="nav nav-list menulinks">
                 	<li class="nav-header">Private Reports</li>
 					<?php foreach($publicResult as $k=>$v) { ?>
-						<li><a href="javascript:void(0);" onclick="renderTreeChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
+						<li><a href="javascript:void(0);" onclick="renderSunChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
 					<?php } ?>
 					
                     <li class="nav-header">Public Reports</li>
@@ -77,10 +79,10 @@ $privateResult = getPrivateReportEntries();  ?>
                                 <div class="pull-right">
                                 	<ul class="nav nav-pills">
                                         <li class="active">
-											<a href="#">Partition Layout</a>
+											<a href="javascript:getReport(1)">Sun Burst</a>
                                         </li>
-                                        <li><a href="#">Pack Layout</a></li>
-                                        <li><a href="#">Cluster Layout</a></li>
+                                        <li><a href="javascript:getReport(2)">Dendrograph</a></li>
+                                        
                                 	</ul>
                                 </div>
                             </div>
