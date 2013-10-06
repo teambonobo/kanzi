@@ -1,3 +1,4 @@
+var _reportId;
 $(document).ready(function(){
 var reportId = 2;
   // $(".reportsTab").click(function(){
@@ -91,6 +92,7 @@ function zoom(d, i) {
 
 function renderSunChart(reportId)
 {
+_reportId = reportId;
 var width = 1024,
     height = 700,
     radius = Math.min(width, height) / 2;
@@ -125,24 +127,41 @@ var arc = d3.svg.arc()
     .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
 d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
-
+	// Code for localStorage
 	var localStprageData = JSON.stringify(root);
 	 if(error){
 		root = JSON.parse(localStorage[reportId]);
 	} else {
 		localStorage[reportId] = localStprageData;
 	} 
+	// Code for localStorage
   var path = svg.selectAll("path")
       .data(partition.nodes(root))
     .enter().append("path")
       .attr("d", arc)
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-      .on("click", click)
+      .on("dblclick", click)
+	  .on("click", showToolTip);
+	  
 
+	function showToolTip(d){
+		tooltip.pop(this,d.name + (d.size ? '('+d.size+')' : ''), {position:4}); 
+		
+	}
+	
   function click(d) {
     path.transition()
       .duration(750)
       .attrTween("d", arcTween(d));
+	  
+	  path.append("svg:text")
+      .attr("transform", function(d) { return "rotate(" + (d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180 + ")"; })
+      .attr("x", function(d) { return Math.sqrt(d.y); })
+      .attr("dx", "50") // margin
+      .attr("dy", "10em") // vertical-align
+      .text(function(d) { 
+		return d.name; 
+		});
   }
 });
 
@@ -167,6 +186,7 @@ function arcTween(d) {
 
 function renderTreeChart(reportId)
 {
+_reportId = reportId;
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
@@ -241,9 +261,9 @@ function update(source) {
 
   nodeEnter.append("text")
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-      .attr("dy", ".35em")
+      .attr("dy", "1em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .text(function(d) { return d.name; })
+      .text(function(d) { ret =  d.name; ret += d.size ? '('+d.size+')' :''; return ret;})
       .style("fill-opacity", 1e-6);
 
   // Transition nodes to their new position.
@@ -321,4 +341,18 @@ function redraw() {
   vis.attr("transform",
       "translate(" + d3.event.translate + ")"
       + " scale(" + d3.event.scale + ")");
+}
+
+
+function getReport(reportType){
+	$('#visualisation').empty();
+	switch(reportType) {
+		case 1:
+			renderSunChart(_reportId);
+			break;
+		case 2:
+			renderTreeChart(_reportId);
+			break;
+	}
+
 }
