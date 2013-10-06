@@ -79,8 +79,8 @@ class Dataminer{
 		
 		$options = array("table"=>$tblName,"field"=>$this->ranks[0],'pivot'=>$pivot,'next'=>1);
 		
-		$arr = '{"name":"'.$this->ranks[0].'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
-		$queryUpdate = "UPDATE kanzi.bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
+		$arr = '{"name":"'.$this->ranks[0].'","pivot":"'.$pivot.'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
+		echo $queryUpdate = "UPDATE kanzi.bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
 		$this->connector->query($queryUpdate);   
 		
 		
@@ -96,10 +96,11 @@ class Dataminer{
 		 $where = "";
 		 foreach($criteria as $key=>$value) {
 			$where .= $where?" AND ":" WHERE ";
-			$where .= $key ."='".$value."'";
+			$where .= $key ."='".mysql_escape_string($value)."'";
 		 }
+		 echo "\n\n";
+		 echo $countSql .= $where." Group By $field";
 		 
-		 $countSql .= $where." Group By $field";
 		 $countRes = $this->connector->query($countSql);
 		 $i = 0;
 		while($countResRow = $this->connector->fetchAssocArray($countRes)) {
@@ -109,7 +110,7 @@ class Dataminer{
 					$retArray .= ",";
 					
 				$i++;
-				$retArray .= '{"name":"'.$countResRow['field'].'","size":"'.$countResRow['cnt'].'"';
+				$retArray .= '{"name":"'.addslashes($countResRow['field']).'","pivot":"'.$pivot.'","field":"'.$field.'","size":"'.$countResRow['cnt'].'"';
 				$childData = $this->getChildren($this->ranks[$next],$tablename,$pivot,$next,$criteria);
 				//var_dump($childData != '{}');
 				if($childData != '{}') {
@@ -120,7 +121,7 @@ class Dataminer{
 				if($i > 0)
 					$retArray .= ",";
 				$i++;
-				$retArray .= '{"name":"'.$countResRow['field'].'","size":"'.$countResRow['cnt'].'"}';
+				$retArray .= '{"name":"'.addslashes($countResRow['field']).'","pivot":"'.$pivot.'","field":"'.$field.'","size":"'.addslashes($countResRow['cnt']).'"}';
 			}
 
 		 }
