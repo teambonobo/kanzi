@@ -43,19 +43,18 @@ if(!empty($_REQUEST['list'])){
                     <div class="control-group">
                         <label class="control-label">Dataset</label>
                         <div class="controls">
-                             <!--input type="text" placeholder="" autocomplete="on" list="datalist" name="List"-->
-                             <select  name="list" id="datalist">
-                              	<?php 	
-										$connector = new DbConnector();
-										$query = "Show Tables";
-										$result = $connector->query($query);
-										while ($row = $connector->fetchArray($result)) { 
-											echo "<option value='".$row[0]."' name='".$row[0]."'>".$row[0]."</option>";
-										}
+							 <input type="text" placeholder="" autocomplete="on" list="datalist" name="list">
+                             <datalist id="datalist">
+							 <?php 	
+									$connector = new DbConnector();
+									$query = "Show Tables";
+									$result = $connector->query($query);
+									while ($row = $connector->fetchArray($result)) { 
+										echo "<option value='".$row[0]."'>";
+									}
 								?>
-							  
-                            </select>
-                        </div>
+                            </datalist>
+						</div>
                     </div>
                     
                     <div class="control-group">
