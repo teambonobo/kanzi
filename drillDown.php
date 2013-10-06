@@ -96,8 +96,9 @@ $("#sort tbody").sortable({
     	<div class="row-fluid">
 		<div class="txtcenter">
             	<?php if(!empty($message)){
-					echo $message;		
-				}else{ ?>                    
+					echo $message;	?>	
+			<br /> <br /> <button type="submit" class="btn btn-primary btn-custom" onClick="window.location='index.php';">Go To Dashboard</button>
+			<?php	}else{ ?>                    
 					<form name="data" class="form-horizontal" method="post" action="" data-ajax="false">
 						<p style="color:#ff0000">
 						<?php if(!empty($errorMsg)){
