@@ -50,7 +50,7 @@ $publicResult = getPublicReportEntries();
             	<ul class="nav nav-list menulinks">
                 	<li class="nav-header">Reports List</li>
 					<?php foreach($publicResult as $k=>$v) { ?>
-						<li><a href="javascript:void(0);" onclick="renderSunChart(<?php echo  $v['id']; ?>);" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
+						<li><a href="javascript:void(0);" onclick="renderSunChart(<?php echo  $v['id']; ?>,'<?php echo $v['report_name']; ?>');" class="reportsTab"><?php echo $v['report_name']; ?></a></li>
 					<?php } ?>
               	</ul>
          	</div>
@@ -72,6 +72,7 @@ $publicResult = getPublicReportEntries();
                                 	</ul>
                                 </div>
                             </div>
+							<h1 id="reportTitle" style="text-align:center;margin-left:176px;"></h1>
                             <div class="visualisation" id="visualisation">
                             	
                             </div>

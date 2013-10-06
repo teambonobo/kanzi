@@ -24,7 +24,7 @@ class CSVParse
 		$dbcon = (new DBManager($this->dbparams));
 		$dbh = $dbcon->connect();
 		if($dbh != False){
-			echo "Connected!";
+			#echo "Connected!";
 		}
 
 		if($this->file != FALSE)
@@ -37,13 +37,11 @@ class CSVParse
 			}
 		
 
-		var_dump($this->cols);
-		echo "<br>";
 		for ($i=0; $i < 10; $i++) { 
 			if((($data = fgetcsv($this->file)) != FALSE) || (($data = fgetcsv($this->file)) != NULL))
 			{
 				for ($j=0; $j < count($data); $j++) { 
-					echo $data[$j]."| ";
+					
 					if(!is_numeric($data[$j])){
 						$this->types[$j] = 'TEXT';
 					}
@@ -59,13 +57,14 @@ class CSVParse
 				break;
 		}
 
-		echo "<br>";
-		var_dump($this->types);
-
 		$dbcon->createTable(substr($this->filename,0,-4),$this->cols,$this->types);
 
 		$this->file = fopen($this->filename, "r");
-		fgetcsv($this->file);
+		$data = fgetcsv($this->file);
+
+		var_dump($data);
+		echo "<br>";
+
 		for ($i=0;; $i++) { 
 			if((($data = fgetcsv($this->file)) != FALSE) || (($data = fgetcsv($this->file)) != NULL))
 			{
