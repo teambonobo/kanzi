@@ -90,8 +90,10 @@ function zoom(d, i) {
 
 
 
-function renderSunChart(reportId)
+function renderSunChart(reportId, name)
 {
+
+$("#reportTitle").html(name);
 _reportId = reportId;
 var width = 1024,
     height = 700,
