@@ -43,9 +43,9 @@ class Dataminer{
 					$distinctResult = $connector->query($query);
 					$distinctRow = $connector->fetchAssocArray($distinctResult);
 					if(($tableCount-$distinctRow['cnt'])>0){ //Get the Cardinal Values
-						if((($tableCount-$distinctRow['cnt'])/100)>50){
+	//					if((($tableCount-$distinctRow['cnt'])/100)>50){
 							$cardinal[$row['Field']] = $distinctRow['cnt'];			
-						}
+		//				}
 					}
 				 }else{
 					$primaryKey=$row['Field'];
@@ -80,7 +80,7 @@ class Dataminer{
 		$options = array("table"=>$tblName,"field"=>$this->ranks[0],'pivot'=>$pivot,'next'=>1);
 		
 		$arr = '{"name":"'.$this->ranks[0].'","pivot":"'.$pivot.'","children":['.$this->getChildren($this->ranks[0],$tblName,$pivot,1,array()).']}';
-		echo $queryUpdate = "UPDATE kanzi.bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
+		$queryUpdate = "UPDATE kanzi.bonobo_reports SET value = '".$arr."' WHERE id = $reportId";
 		$this->connector->query($queryUpdate);   
 		
 		
@@ -98,8 +98,8 @@ class Dataminer{
 			$where .= $where?" AND ":" WHERE ";
 			$where .= $key ."='".mysql_escape_string($value)."'";
 		 }
-		 echo "\n\n";
-		 echo $countSql .= $where." Group By $field";
+		 //echo "\n\n";
+		 $countSql .= $where." Group By $field";
 		 
 		 $countRes = $this->connector->query($countSql);
 		 $i = 0;

@@ -92,6 +92,7 @@ function zoom(d, i) {
 
 function renderSunChart(reportId)
 {
+$('#visualisation').empty();
 _reportId = reportId;
 var width = 1024,
     height = 700,
@@ -155,7 +156,7 @@ d3.json("fetchReport.php?reportId="+reportId, function(error, root) {
 			dparent = dparent.parent;
 		}
 		dfld = (d.field ? " For "+d.field+" as " + d.name : '')
-		tooltip.pop(this,per + str +  dfld + (d.size ? ' is '+d.size : ''), {position:4}); 
+		tooltip.pop(null,per + str +  dfld + (d.size ? ' is '+d.size : ''), {position:4}); 
 		
 	}
 	
@@ -196,6 +197,7 @@ function arcTween(d) {
 
 function renderTreeChart(reportId)
 {
+$('#visualisation').empty();
 _reportId = reportId;
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
